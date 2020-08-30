@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.saby.msec</groupId>
-	<artifactId>service-registrar</artifactId>
+	<artifactId>eureka-service-registrar</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>service-registrar</name>
-	<description>Registry server for Micro-service project implementation</description>
+	<name>eureka-service-registrar</name>
+	<description>Eureka Registry server for Micro-service project implementation</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -31,6 +31,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 
