@@ -9,6 +9,10 @@ import edu.saby.msec.catalogserver.async.response.AsyncResponseFluentBuilder;
 import rx.Observable;
 import rx.Single;
 
+/**
+ * @author Soumya Banerjee
+ *
+ */
 public abstract class AbstractController {
 	protected <T> ResponseEntity<T> makeResponse(T message) {
 		return makeResponse(message, null, HttpStatus.OK);

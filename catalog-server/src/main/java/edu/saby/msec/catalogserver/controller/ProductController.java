@@ -12,6 +12,10 @@ import edu.saby.msec.catalogserver.async.response.AsyncResponse;
 import edu.saby.msec.catalogserver.model.Product;
 import edu.saby.msec.catalogserver.service.ProductService;
 
+/**
+ * @author Soumya Banerjee
+ *
+ */
 @RestController
 @RequestMapping("/catalog-server")
 public class ProductController extends AbstractController{
@@ -24,7 +28,7 @@ public class ProductController extends AbstractController{
     }
 	
 	@RequestMapping("/{id}")
-    public AsyncResponse<Product> getById(@PathVariable("id") String id) {
+    public AsyncResponse<Product> getProductById(@PathVariable("id") String id) {
 		return makeAsyncResponse(productService.getById(id));
     }
 	
@@ -32,7 +36,15 @@ public class ProductController extends AbstractController{
     public AsyncResponse<Product> add(@ModelAttribute Product product) {
     	return makeAsyncResponse(productService.add(product), HttpStatus.CREATED);
     }
-    
+	
+	@RequestMapping("/addProduct/name={productName}&price={price}")
+	public AsyncResponse<Product> addProduct(@PathVariable("productName") String productName, @PathVariable("price") Double price) {
+    	Product product = new Product();
+    	product.setName(productName);
+    	product.setPrice(price);
+		return makeAsyncResponse(productService.add(product), HttpStatus.CREATED);
+    }
+	
     @RequestMapping(method = RequestMethod.PUT)
     public AsyncResponse<Product> edit(@ModelAttribute Product product) {
     	return makeAsyncResponse(productService.edit(product), HttpStatus.ACCEPTED);

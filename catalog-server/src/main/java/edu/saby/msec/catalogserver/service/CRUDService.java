@@ -3,6 +3,11 @@ package edu.saby.msec.catalogserver.service;
 import rx.Observable;
 import rx.Single;
 
+/**
+ * @author Soumya Banerjee
+ *
+ * @param <T>
+ */
 public interface CRUDService<T> {
 	Single<T> getById(String id);
 

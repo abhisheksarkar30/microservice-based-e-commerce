@@ -6,6 +6,11 @@ import org.springframework.util.MultiValueMap;
 import rx.Observable;
 import rx.Single;
 
+/**
+ * @author Soumya Banerjee
+ *
+ * @param <T>
+ */
 public class AsyncResponseFluentBuilder<T> {
 
 	private AsyncResponseFluentBuilder() {

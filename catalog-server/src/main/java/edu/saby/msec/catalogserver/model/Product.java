@@ -1,5 +1,9 @@
 package edu.saby.msec.catalogserver.model;
 
+/**
+ * @author Soumya Banerjee
+ *
+ */
 public class Product {
 	private String sellerId;
 	private String name;

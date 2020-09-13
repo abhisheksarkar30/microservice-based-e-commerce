@@ -21,7 +21,7 @@
 		<http.port>8502</http.port>
 		<mongo.host>localhost</mongo.host>
 		<mongo.port>27017</mongo.port>
-		<mongo.database>${name}-db</mongo.database>
+		<mongo.database>${project.name}-db</mongo.database>
 		<mongo.username></mongo.username>
 		<mongo.password></mongo.password>
 	</properties>
