@@ -1,5 +1,7 @@
 package edu.saby.msec.catalogserver.service.impl;
 
+import org.springframework.data.mongodb.core.query.Query;
+
 import edu.saby.msec.catalogserver.dao.GenericDao;
 import edu.saby.msec.catalogserver.exceptions.DataAccessException;
 import edu.saby.msec.catalogserver.service.CRUDService;
@@ -8,7 +10,7 @@ import rx.Single;
 import rx.exceptions.Exceptions;
 
 /**
- * @author Soumya Banerjee
+ * @author Soumya Banerjee & Abhishek Sarkar
  *
  * @param <T>
  */
@@ -68,6 +70,15 @@ public abstract class CRUDServiceImpl<T> implements CRUDService<T> {
 	public Observable<T> getAll() {
 		try {
 			return Observable.from(genericDao.getAll());
+		} catch (DataAccessException de) {
+			return Observable.error(de);
+		}
+	}
+	
+	@Override
+	public Observable<T> getByFields(Query query) {
+		try {
+			return Observable.from(genericDao.getByFields(query));
 		} catch (DataAccessException de) {
 			return Observable.error(de);
 		}

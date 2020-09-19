@@ -1,6 +1,8 @@
 package edu.saby.msec.catalogserver.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,12 +15,13 @@ import edu.saby.msec.catalogserver.model.Product;
 import edu.saby.msec.catalogserver.service.ProductService;
 
 /**
- * @author Soumya Banerjee
+ * @author Soumya Banerjee & Abhishek Sarkar
  *
  */
 @RestController
-@RequestMapping("/catalog-server")
-public class ProductController extends AbstractController{
+@RequestMapping("/products")
+public class ProductController extends AbstractController {
+	
 	@Autowired
 	private ProductService productService;
 	
@@ -49,4 +52,11 @@ public class ProductController extends AbstractController{
     public AsyncResponse<Product> edit(@ModelAttribute Product product) {
     	return makeAsyncResponse(productService.edit(product), HttpStatus.ACCEPTED);
     }
+    
+    @RequestMapping("/name={productName}")
+    public AsyncResponse<Product> getProductByName(@PathVariable("productName") String productName) {
+    	Query query = new Query(Criteria.where("name").is(productName));
+		return makeAsyncResponse(productService.getByFields(query));
+    }
+    
 }

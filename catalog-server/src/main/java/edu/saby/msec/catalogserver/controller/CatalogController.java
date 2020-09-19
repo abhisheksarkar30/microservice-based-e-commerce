@@ -34,7 +34,7 @@ public class CatalogController {
     public String getAll() {
 		System.out.println("getting all here");
 		
-		MongoDatabase database = mongoClient.getDatabase(env.getProperty("data.mongodb.database"));
+		MongoDatabase database = mongoClient.getDatabase(env.getProperty("spring.data.mongodb.database"));
 		MongoCollection<Document> collection = database.getCollection("customers");
 		
 		FindIterable<Document> docs = collection.find();
@@ -50,7 +50,7 @@ public class CatalogController {
     public String getCustomersByField(@PathVariable("field") String field, @PathVariable("value") String value) {
 		System.out.println("getting all here");
 		
-		MongoDatabase database = mongoClient.getDatabase(env.getProperty("data.mongodb.database"));
+		MongoDatabase database = mongoClient.getDatabase(env.getProperty("spring.data.mongodb.database"));
 		MongoCollection<Document> collection = database.getCollection("customers");
 		
 		FindIterable<Document> docs = collection.find(new Document(field, value));
@@ -66,7 +66,7 @@ public class CatalogController {
     public String add(@PathVariable("name") String name, @PathVariable("company") String company) {
 		System.out.println("adding here");
 		
-		MongoDatabase database = mongoClient.getDatabase(env.getProperty("data.mongodb.database"));
+		MongoDatabase database = mongoClient.getDatabase(env.getProperty("spring.data.mongodb.database"));
 		MongoCollection<Document> collection = database.getCollection("customers");
 		
 		Document document = new Document();

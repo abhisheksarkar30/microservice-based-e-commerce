@@ -6,10 +6,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Query;
 
 import edu.saby.msec.catalogserver.dao.GenericDao;
 import edu.saby.msec.catalogserver.exceptions.DataAccessException;
 
+/**
+ * 
+ * @author Abhishek Sarkar & Soumya Banerjee
+ *
+ * @param <T>
+ */
 public class GenericDaoImpl<T> implements GenericDao<T> {
 
 	private static final Logger logger = LoggerFactory.getLogger(GenericDaoImpl.class);
@@ -77,6 +84,17 @@ public class GenericDaoImpl<T> implements GenericDao<T> {
 			logger.debug("type {} getAll", type);
 		try {
 			return mongoOperations.findAll(type);
+		} catch (Exception e) {
+			throw new DataAccessException(e);
+		}
+	}
+	
+	@Override
+	public List<T> getByFields(Query query) throws DataAccessException {
+		if (logger.isDebugEnabled())
+			logger.debug("type {} getByFields", type);
+		try {
+			return mongoOperations.find(query, type);
 		} catch (Exception e) {
 			throw new DataAccessException(e);
 		}

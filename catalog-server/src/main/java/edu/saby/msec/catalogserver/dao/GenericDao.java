@@ -2,9 +2,18 @@ package edu.saby.msec.catalogserver.dao;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.core.query.Query;
+
 import edu.saby.msec.catalogserver.exceptions.DataAccessException;
 
+/**
+ * 
+ * @author Abhishek Sarkar & Soumya Banerjee
+ *
+ * @param <T>
+ */
 public interface GenericDao<T> {
+	
 	/**
      * This method delete given object from the database.
      *
@@ -43,4 +52,12 @@ public interface GenericDao<T> {
      * @throws DataAccessException - throws if an error occurs
      */
     T delete(T object) throws DataAccessException;
+    
+    /**
+     * This method fetches objects specified by given fields from the database.
+     *
+     * @param id - Object id to load
+     * @throws DataAccessException - throws if an error occurs
+     */
+    List<T> getByFields(Query query) throws DataAccessException;
 }
