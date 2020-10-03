@@ -15,7 +15,7 @@ public class Product {
 	
 	private String sellerId;
 	private String name;
-	private double price;
+	private Double price;
 	
 	public Product() {}
 	
@@ -70,15 +70,20 @@ public class Product {
 	/**
 	 * @return the price
 	 */
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 	
 	/**
 	 * @param price the price to set
 	 */
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", sellerId=" + sellerId + ", name=" + name + ", price=" + price + "]";
+	}
+	
 }
