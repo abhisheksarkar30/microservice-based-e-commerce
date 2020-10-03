@@ -14,6 +14,7 @@ import rx.Single;
  *
  */
 public abstract class AbstractController {
+	
 	protected <T> ResponseEntity<T> makeResponse(T message) {
 		return makeResponse(message, null, HttpStatus.OK);
 	}
@@ -51,4 +52,5 @@ public abstract class AbstractController {
 	protected <T> AsyncResponse<T> makeAsyncResponse(Single<T> single, MultiValueMap<String, String> headers,HttpStatus httpStatus) {
 		return AsyncResponseFluentBuilder.<T>newBuilder().status(httpStatus).single(single).headers(headers).build();
 	}
+	
 }

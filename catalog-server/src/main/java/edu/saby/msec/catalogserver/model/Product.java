@@ -1,6 +1,8 @@
 package edu.saby.msec.catalogserver.model;
 
-import org.springframework.data.annotation.Id;
+import java.util.Map;
+
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -8,50 +10,23 @@ import org.springframework.data.mongodb.core.mapping.Document;
  *
  */
 @Document(collection = "Product")
-public class Product {
+public class Product extends AbstractEntityBase {
 	
-	@Id
-    private String id;
-	
-	private String sellerId;
+	@Indexed
 	private String name;
-	private Double price;
+	private String category;
+	private String description;
+	
+	/**
+	 * {@link Map} of Key - Seller ID and Value - Sell Price assigned for the product by the Seller
+	 */
+	private Map<String, Double> sellerOfferings;
 	
 	public Product() {}
 	
 	public Product(String id) {
-        this.id = id;
+        super(id);
     }
-	
-	/**
-	 * 
-	 * @return the id of the product
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * 
-	 * @param id the product id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-	
-	/**
-	 * @return the sellerId
-	 */
-	public String getSellerId() {
-		return sellerId;
-	}
-	
-	/**
-	 * @param sellerId the sellerId to set
-	 */
-	public void setSellerId(String sellerId) {
-		this.sellerId = sellerId;
-	}
 	
 	/**
 	 * @return the name
@@ -59,31 +34,63 @@ public class Product {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	/**
-	 * @return the price
+	 * @return the category
 	 */
-	public Double getPrice() {
-		return price;
+	public String getCategory() {
+		return category;
 	}
-	
+
 	/**
-	 * @param price the price to set
+	 * @param category the category to set
 	 */
-	public void setPrice(Double price) {
-		this.price = price;
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description the description to set
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	/**
+	 * @return the sellerOfferings
+	 */
+	public Map<String, Double> getSellerOfferings() {
+		return sellerOfferings;
+	}
+
+	/**
+	 * @param sellerOfferings the sellerOfferings to set
+	 */
+	public void setSellerOfferings(Map<String, Double> sellerOfferings) {
+		this.sellerOfferings = sellerOfferings;
 	}
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", sellerId=" + sellerId + ", name=" + name + ", price=" + price + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("Product [name=").append(name).append(", category=").append(category).append(", description=")
+				.append(description).append(", sellerOfferings=").append(sellerOfferings).append(", getId()=")
+				.append(getId()).append("]");
+		return builder.toString();
 	}
 	
 }
