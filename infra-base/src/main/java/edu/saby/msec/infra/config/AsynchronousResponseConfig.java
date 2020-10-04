@@ -1,4 +1,4 @@
-package edu.saby.msec.catalogserver.config;
+package edu.saby.msec.infra.config;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.web.method.support.AsyncHandlerMethodReturnValueHandl
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import edu.saby.msec.catalogserver.async.handlers.AsynchronousResponseHandler;
+import edu.saby.msec.infra.async.handlers.AsynchronousResponseHandler;
 
 @Configuration
 public class AsynchronousResponseConfig {

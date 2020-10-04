@@ -1,4 +1,4 @@
-package edu.saby.msec.catalogserver.service;
+package edu.saby.msec.infra.service;
 
 import org.springframework.data.mongodb.core.query.Query;
 

@@ -9,21 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.saby.msec</groupId>
-	<artifactId>catalog-server</artifactId>
+	<artifactId>infra-base</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>catalog-server</name>
-	<description>Service to Add and Retrieve Products</description>
+	<name>infra-base</name>
+	<description>Common custom library for MSEC Infrastructure base</description>
 
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-		
-		<http.port>8502</http.port>
-		<mongo.host>localhost</mongo.host>
-		<mongo.port>27017</mongo.port>
-		<mongo.database>${project.name}-db</mongo.database>
-		<mongo.username></mongo.username>
-		<mongo.password></mongo.password>
 	</properties>
 
 	<dependencies>
@@ -39,19 +31,22 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
-		<!-- Spring Boot Eureka Client, contains Spring Boot Starter, rx java -->
+		<!-- RxJava -->
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<groupId>io.reactivex</groupId>
+			<artifactId>rxjava</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>io.reactivex</groupId>
+			<artifactId>rxjava-reactive-streams</artifactId>
 		</dependency>
 		
 		<dependency>
-			<groupId>edu.saby.msec</groupId>
-			<artifactId>infra-base</artifactId>
-			<version>${project.version}</version>
+			<groupId>io.reactivex.rxjava2</groupId>
+			<artifactId>rxjava</artifactId>
 		</dependency>
 		
-		<!-- Spring Boot Test Starter -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -64,26 +59,5 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-
+	
 </project>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import edu.saby.msec.catalogserver.dao.ProductDao;
 import edu.saby.msec.catalogserver.model.Product;
 import edu.saby.msec.catalogserver.service.ProductService;
+import edu.saby.msec.infra.service.impl.CRUDServiceImpl;
 
 /**
  * @author Soumya Banerjee

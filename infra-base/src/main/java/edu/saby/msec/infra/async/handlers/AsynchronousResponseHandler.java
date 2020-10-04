@@ -1,4 +1,4 @@
-package edu.saby.msec.catalogserver.async.handlers;
+package edu.saby.msec.infra.async.handlers;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
@@ -8,9 +8,9 @@ import org.springframework.web.context.request.async.WebAsyncUtils;
 import org.springframework.web.method.support.AsyncHandlerMethodReturnValueHandler;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import edu.saby.msec.catalogserver.async.deferred.ObservableDeferredResult;
-import edu.saby.msec.catalogserver.async.deferred.SingleDeferredResult;
-import edu.saby.msec.catalogserver.async.response.AsyncResponse;
+import edu.saby.msec.infra.async.deferred.ObservableDeferredResult;
+import edu.saby.msec.infra.async.deferred.SingleDeferredResult;
+import edu.saby.msec.infra.async.response.AsyncResponse;
 import rx.Observable;
 import rx.Single;
 

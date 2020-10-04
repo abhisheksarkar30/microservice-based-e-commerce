@@ -1,4 +1,4 @@
-package edu.saby.msec.catalogserver.dao.impl;
+package edu.saby.msec.infra.dao.impl;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Query;
 
-import edu.saby.msec.catalogserver.dao.GenericDao;
-import edu.saby.msec.catalogserver.exceptions.DataAccessException;
+import edu.saby.msec.infra.dao.GenericDao;
+import edu.saby.msec.infra.exceptions.DataAccessException;
 
 /**
  * 

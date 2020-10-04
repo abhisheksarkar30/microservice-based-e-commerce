@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import edu.saby.msec.catalogserver.dao.ProductDao;
 import edu.saby.msec.catalogserver.model.Product;
+import edu.saby.msec.infra.dao.impl.GenericDaoImpl;
 
 /**
  * @author Soumya Banerjee

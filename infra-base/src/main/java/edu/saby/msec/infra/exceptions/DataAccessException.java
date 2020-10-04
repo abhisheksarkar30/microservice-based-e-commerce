@@ -1,4 +1,4 @@
-package edu.saby.msec.catalogserver.exceptions;
+package edu.saby.msec.infra.exceptions;
 
 /**
  * @author Soumya Banerjee

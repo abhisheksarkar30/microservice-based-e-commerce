@@ -1,4 +1,4 @@
-package edu.saby.msec.catalogserver.model;
+package edu.saby.msec.infra.model;
 
 import org.springframework.data.annotation.Id;
 

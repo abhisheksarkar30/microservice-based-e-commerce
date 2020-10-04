@@ -1,10 +1,10 @@
-package edu.saby.msec.catalogserver.service.impl;
+package edu.saby.msec.infra.service.impl;
 
 import org.springframework.data.mongodb.core.query.Query;
 
-import edu.saby.msec.catalogserver.dao.GenericDao;
-import edu.saby.msec.catalogserver.exceptions.DataAccessException;
-import edu.saby.msec.catalogserver.service.CRUDService;
+import edu.saby.msec.infra.dao.GenericDao;
+import edu.saby.msec.infra.exceptions.DataAccessException;
+import edu.saby.msec.infra.service.CRUDService;
 import rx.Observable;
 import rx.Single;
 import rx.exceptions.Exceptions;

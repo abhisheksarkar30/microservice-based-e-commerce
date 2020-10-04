@@ -1,10 +1,10 @@
-package edu.saby.msec.catalogserver.dao;
+package edu.saby.msec.infra.dao;
 
 import java.util.List;
 
 import org.springframework.data.mongodb.core.query.Query;
 
-import edu.saby.msec.catalogserver.exceptions.DataAccessException;
+import edu.saby.msec.infra.exceptions.DataAccessException;
 
 /**
  * 

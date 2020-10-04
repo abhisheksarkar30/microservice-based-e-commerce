@@ -1,4 +1,4 @@
-package edu.saby.msec.catalogserver.async.deferred;
+package edu.saby.msec.infra.async.deferred;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -5,6 +5,8 @@ import java.util.Map;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import edu.saby.msec.infra.model.AbstractEntityBase;
+
 /**
  * @author Soumya Banerjee & Abhishek Sarkar
  *

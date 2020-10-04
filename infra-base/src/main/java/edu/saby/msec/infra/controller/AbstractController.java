@@ -1,11 +1,11 @@
-package edu.saby.msec.catalogserver.controller;
+package edu.saby.msec.infra.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 
-import edu.saby.msec.catalogserver.async.response.AsyncResponse;
-import edu.saby.msec.catalogserver.async.response.AsyncResponseFluentBuilder;
+import edu.saby.msec.infra.async.response.AsyncResponse;
+import edu.saby.msec.infra.async.response.AsyncResponseFluentBuilder;
 import rx.Observable;
 import rx.Single;
 

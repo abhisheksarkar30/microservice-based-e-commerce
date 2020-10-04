@@ -1,4 +1,4 @@
-package edu.saby.msec.catalogserver.controller;
+package edu.saby.msec.infra.controller;
 
 import java.lang.reflect.Field;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import edu.saby.msec.catalogserver.async.response.AsyncResponse;
-import edu.saby.msec.catalogserver.exceptions.DataAccessException;
-import edu.saby.msec.catalogserver.service.CRUDService;
+import edu.saby.msec.infra.async.response.AsyncResponse;
+import edu.saby.msec.infra.exceptions.DataAccessException;
+import edu.saby.msec.infra.service.CRUDService;
 
 /**
  * @author Soumya Banerjee & Abhishek Sarkar
