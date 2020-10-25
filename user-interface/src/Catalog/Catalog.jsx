@@ -24,12 +24,7 @@ class Catalog extends Component {
 		const response = await fetch('/api/catalog-server/products');
 		const body = await response.json();
 		this.setState({ 
-			products: body.concat({
-				id: "dummy",
-				name: "Test Product",
-				category: "Test Category",
-				description: "This Product is Added for Testing Purpose"
-			}), 
+			products: body, 
 			isLoading: false 
 		});
 	}

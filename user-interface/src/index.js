@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import Catalog from './Catalog';
-
+import App from './App'
 
 
 ReactDOM.render(
-  <Catalog />,
+  <App />,
   document.getElementById('root')
 );
