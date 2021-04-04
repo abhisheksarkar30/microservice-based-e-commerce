@@ -9,23 +9,23 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.saby.msec</groupId>
-	<artifactId>catalog-server</artifactId>
+	<artifactId>authN-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
-	<description>Service to Add and Retrieve Products</description>
-
+	<description>Service to authenticate users</description>
+	
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
 		
-		<http.port>8503</http.port>
+		<http.port>8502</http.port>
 		<mongo.host>localhost</mongo.host>
 		<mongo.port>27017</mongo.port>
 		<mongo.database>${project.name}-db</mongo.database>
 		<mongo.username></mongo.username>
 		<mongo.password></mongo.password>
 	</properties>
-
+	
 	<dependencies>
 		<!-- Spring Boot Eureka Client, contains Spring Boot Starter, rx java -->
 		<dependency>
@@ -38,21 +38,21 @@
 			<artifactId>infra-base</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-	
+		
+		<dependency>
+			<groupId>edu.saby.msec</groupId>
+			<artifactId>authZ-lib</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
 		<!-- Spring Boot Test Starter -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 	</dependencies>
-
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
