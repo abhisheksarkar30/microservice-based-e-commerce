@@ -3,6 +3,7 @@ package edu.saby.msec.authz.util;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -52,16 +53,18 @@ public class JWTUtils {
 	}
 	
 	private <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-		final Claims claims = extractAllClaims(token);
-		return claimsResolver.apply(claims);
+		Function<String, Claims> allClaimsExtractor = this::extractAllClaims;
+		return allClaimsExtractor.andThen(claimsResolver).apply(token);
+	}
+
+	private <T> T extractClaim(String token, String claimName, Class<T> requiredClassType) {
+		return extractAllClaims(token).get(claimName, requiredClassType);
 	}
 	
-	private <T> T extractClaim(String token, String key, Class<T> requiredClassType) {
-		return extractAllClaims(token).get(key, requiredClassType);
-	}
-	
-	private <T> T extractClaim(Claims allClaims, String key, Class<T> requiredClassType) {
-		return allClaims.get(key, requiredClassType);
+	private <T> T extractClaim(Claims allClaims, String claimName, Class<T> requiredClassType) {
+		BiFunction<String , Class<T>, T> claimsResolver = allClaims::get;
+		return claimsResolver.apply(claimName, requiredClassType);
+//		return allClaims.get(claimName, requiredClassType);
 	}
 
 	public Claims extractAllClaims(String token) {

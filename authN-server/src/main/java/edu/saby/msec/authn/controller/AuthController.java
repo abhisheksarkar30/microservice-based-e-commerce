@@ -1,5 +1,6 @@
 package edu.saby.msec.authn.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.saby.msec.authn.model.AuthenticationRequest;
 import edu.saby.msec.authz.Constants;
 import edu.saby.msec.authz.util.JWTUtils;
+
+import java.util.Optional;
 
 /**
  * 
@@ -44,9 +47,9 @@ public class AuthController {
 	
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if(authentication.isAuthenticated())
-			return prepareResponseEntity((String) authentication.getCredentials());
+		Optional<Authentication> authentication = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication());
+		if(!StringUtils.equals(authentication.map(Authentication::getName).orElse(StringUtils.EMPTY), Constants.ANONYMOUS_USER))
+			return prepareResponseEntity((String) authentication.get().getCredentials());
 		
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(

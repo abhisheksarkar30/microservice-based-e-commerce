@@ -1,10 +1,10 @@
-package edu.saby.msec.catalogserver;
+package edu.saby.msec.authn;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CatalogServerApplicationTests {
+class AuthServerApplicationTests {
 
 	@Test
 	void contextLoads() {

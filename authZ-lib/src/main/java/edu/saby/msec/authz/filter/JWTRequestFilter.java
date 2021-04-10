@@ -11,11 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
+import org.springframework.security.authentication.RememberMeAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.stereotype.Component;
@@ -31,6 +33,7 @@ import io.jsonwebtoken.Claims;
  *
  */
 @Component
+@ConditionalOnMissingClass("edu.saby.msec.authn.filter.AuthJWTRequestFilter")
 public class JWTRequestFilter extends OncePerRequestFilter {
 
     @Autowired
@@ -40,7 +43,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
     private JWTUtils jwtUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+    final protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
     	final String authorizationHeader = request.getHeader(Constants.AUTH_HEADER);
@@ -57,24 +60,22 @@ public class JWTRequestFilter extends OncePerRequestFilter {
     		if (authHeaderComponents != null && StringUtils.equals(authHeaderComponents[0], Constants.AUTH_TOKEN_PREFIX)) {
     			token = authHeaderComponents[1];
     			allClaims = jwtUtil.extractAllClaims(token);
-    			
+				username = jwtUtil.extractUsername(allClaims);
+
     			if(jwtUtil.isTokenExpired(allClaims)) {
     				long diffInMillies = Math.abs(new Date().getTime() - jwtUtil.extractExpiration(allClaims).getTime());
     			    long diffInDays = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
     				
 					if(jwtUtil.extractStayLoggedIn(allClaims) && diffInDays < 10) {
-						//Create new JWT via Feign client
-						response.setHeader(Constants.AUTH_HEADER, Constants.AUTH_TOKEN_PREFIX + Constants.AUTH_TOKEN_SEPARATOR + token);
+						token = doRefreshTokenHook(response, token);
+						allClaims = jwtUtil.extractAllClaims(token);
 					} else {
-						new Http403ForbiddenEntryPoint().commence(request, response,
-								new SessionAuthenticationException("Session Timeout"));
+						throw new SessionAuthenticationException("Session Timeout");
+//						throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Session Timeout", null);
 					}
 				}
-    			
-    			username = jwtUtil.extractUsername(allClaims);
     		} else {
-    			new Http403ForbiddenEntryPoint().commence(request, response,
-						new SessionAuthenticationException("Not yet Logged in!"));
+    			new SessionAuthenticationException("Not yet Logged in!");
     		}
 
     		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
@@ -92,5 +93,11 @@ public class JWTRequestFilter extends OncePerRequestFilter {
     	
         chain.doFilter(request, response);
     }
+
+	protected String doRefreshTokenHook(HttpServletResponse response, String token) {
+		//Create new JWT via Feign client
+		response.setHeader(Constants.AUTH_HEADER, Constants.AUTH_TOKEN_PREFIX + Constants.AUTH_TOKEN_SEPARATOR + token);
+		return token;
+	}
 
 }

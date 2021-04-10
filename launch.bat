@@ -1,5 +1,5 @@
 @echo off 
-REM debug "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
+REM debug "-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=8000"
 
 set JAVA_HOME=%JAVA8HOME%
 
