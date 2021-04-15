@@ -3,6 +3,7 @@ package edu.saby.msec.authn.controller;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.saby.msec.authn.model.AuthenticationRequest;
+import edu.saby.msec.authn.model.AuthenticationResponse;
 import edu.saby.msec.authz.Constants;
 import edu.saby.msec.authz.util.JWTUtils;
 
@@ -46,27 +48,32 @@ public class AuthController {
 	}
 	
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+	public ResponseEntity<AuthenticationResponse> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
+		AuthenticationResponse response = new AuthenticationResponse();
+		
 		Optional<Authentication> authentication = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication());
 		if(!StringUtils.equals(authentication.map(Authentication::getName).orElse(Constants.ANONYMOUS_USER), Constants.ANONYMOUS_USER))
-			return prepareResponseEntity((String) authentication.get().getCredentials());
+			return prepareResponseEntity(response, (String) authentication.get().getCredentials());
 		
 		try {
 			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
 					authenticationRequest.getUsername(), authenticationRequest.getPassword()));
 		} catch(BadCredentialsException e) {
-			throw new Exception("Incorrect username or password", e);
+			//TODO logging
+			response.setErrorMessage(e.getMessage());
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 		}
 
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
 
 		final String token = jwtTokenUtil.generateToken(userDetails, authenticationRequest.isStayLoggedIn());
 
-		return prepareResponseEntity(token);
+		return prepareResponseEntity(response, token);
 	}
 
-	private ResponseEntity<String> prepareResponseEntity(String token) {
-		return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, Constants.AUTH_TOKEN_PREFIX + Constants.AUTH_TOKEN_SEPARATOR + token).body("SUCCESS");
+	private ResponseEntity<AuthenticationResponse> prepareResponseEntity(AuthenticationResponse response, String token) {
+		response.setData("SUCCESS");
+		return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, Constants.AUTH_TOKEN_PREFIX + Constants.AUTH_TOKEN_SEPARATOR + token).body(response);
 	}
 
 }
