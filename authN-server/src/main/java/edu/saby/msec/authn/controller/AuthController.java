@@ -48,7 +48,7 @@ public class AuthController {
 	@RequestMapping(value = "/authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 		Optional<Authentication> authentication = Optional.ofNullable(SecurityContextHolder.getContext().getAuthentication());
-		if(!StringUtils.equals(authentication.map(Authentication::getName).orElse(StringUtils.EMPTY), Constants.ANONYMOUS_USER))
+		if(!StringUtils.equals(authentication.map(Authentication::getName).orElse(Constants.ANONYMOUS_USER), Constants.ANONYMOUS_USER))
 			return prepareResponseEntity((String) authentication.get().getCredentials());
 		
 		try {

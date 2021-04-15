@@ -1,4 +1,4 @@
-package edu.saby.msec.gatewayserver;
+package edu.saby.msec.gateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
